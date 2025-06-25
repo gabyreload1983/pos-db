@@ -1,9 +1,9 @@
 
 -- Usuarios de prueba
 INSERT INTO usuarios (nombre, email, password, rol_id) VALUES
-('Administrador', 'admin@pos.com', 'admin123', 1),
-('Cajero', 'cajero@pos.com', 'cajero123', 2),
-('Vendedor', 'vendedor@pos.com', 'vendedor123', 3);
+('Administrador', 'admin@pos.com', '$2b$10$iKmyx/cuss.tdXRVVwJsx.RcVCXOkFRbb0B69ahw.Os4Len.UqVGO', 1),
+('Cajero', 'cajero@pos.com', '$2b$10$iKmyx/cuss.tdXRVVwJsx.RcVCXOkFRbb0B69ahw.Os4Len.UqVGO', 2),
+('Vendedor', 'vendedor@pos.com', '$2b$10$iKmyx/cuss.tdXRVVwJsx.RcVCXOkFRbb0B69ahw.Os4Len.UqVGO', 3);
 
 
 -- Clientes de prueba
