@@ -7,7 +7,7 @@ USE pos;
 CREATE TABLE roles (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(50) NOT NULL UNIQUE
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Tabla de usuarios
 CREATE TABLE usuarios (
@@ -20,13 +20,13 @@ CREATE TABLE usuarios (
   creado_en DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (rol_id) REFERENCES roles(id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Tabla de provincias
 CREATE TABLE provincias (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(100) NOT NULL UNIQUE
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Tabla de ciudades
 CREATE TABLE ciudades (
@@ -35,7 +35,7 @@ CREATE TABLE ciudades (
   provincia_id INT NOT NULL,
   codigo_postal VARCHAR(10),
   FOREIGN KEY (provincia_id) REFERENCES provincias(id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Tabla de sucursales
 CREATE TABLE sucursales (
@@ -51,7 +51,7 @@ CREATE TABLE sucursales (
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (ciudad_id) REFERENCES ciudades(id),
   FOREIGN KEY (provincia_id) REFERENCES provincias(id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Tabla de clientes
 CREATE TABLE clientes (
@@ -61,12 +61,11 @@ CREATE TABLE clientes (
   razon_social VARCHAR(150),
   tipo_documento ENUM('DNI','CUIT','CUIL','Pasaporte') DEFAULT 'DNI',
   numero_documento VARCHAR(20),
-  email VARCHAR(100),
+  email VARCHAR(100) UNIQUE,
   telefono VARCHAR(20),
   direccion VARCHAR(255),
-  ciudad_id INT,
-  provincia_id INT,
-  pais VARCHAR(100) DEFAULT 'Argentina',
+  ciudad_id INT NULL,
+  provincia_id INT NULL,
   condicion_iva ENUM('Responsable Inscripto','Monotributo','Consumidor Final','Exento') DEFAULT 'Consumidor Final',
   cuit VARCHAR(15),
   activo TINYINT(1) DEFAULT 1,
@@ -74,7 +73,8 @@ CREATE TABLE clientes (
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (ciudad_id) REFERENCES ciudades(id),
   FOREIGN KEY (provincia_id) REFERENCES provincias(id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 -- Tabla de monedas
 CREATE TABLE monedas (
@@ -82,26 +82,26 @@ CREATE TABLE monedas (
   nombre VARCHAR(50) NOT NULL,
   simbolo VARCHAR(5) NOT NULL,
   codigo_iso VARCHAR(5) NOT NULL UNIQUE
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Tabla de IVA
 CREATE TABLE iva (
   id INT AUTO_INCREMENT PRIMARY KEY,
   descripcion VARCHAR(50) NOT NULL,
   porcentaje DECIMAL(5,2) NOT NULL
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Tabla de marcas
 CREATE TABLE marcas (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(100) NOT NULL UNIQUE
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Tabla de categorias
 CREATE TABLE categorias (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(100) NOT NULL UNIQUE
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Tabla de proveedores
 CREATE TABLE proveedores (
@@ -120,7 +120,7 @@ CREATE TABLE proveedores (
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (ciudad_id) REFERENCES ciudades(id),
   FOREIGN KEY (provincia_id) REFERENCES provincias(id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Tabla de articulos
 CREATE TABLE articulos (
@@ -145,7 +145,7 @@ CREATE TABLE articulos (
   FOREIGN KEY (categoria_id) REFERENCES categorias(id),
   FOREIGN KEY (marca_id) REFERENCES marcas(id),
   FOREIGN KEY (proveedor_id) REFERENCES proveedores(id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 -- Tabla de stock
@@ -157,7 +157,7 @@ CREATE TABLE stock (
   UNIQUE KEY (articulo_id, sucursal_id),
   FOREIGN KEY (articulo_id) REFERENCES articulos(id),
   FOREIGN KEY (sucursal_id) REFERENCES sucursales(id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Tabla de cajas
 CREATE TABLE cajas (
@@ -172,7 +172,7 @@ CREATE TABLE cajas (
   observaciones TEXT,
   FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
   FOREIGN KEY (sucursal_id) REFERENCES sucursales(id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Tabla de arqueos
 CREATE TABLE arqueos (
@@ -184,7 +184,7 @@ CREATE TABLE arqueos (
   observaciones TEXT,
   fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (caja_id) REFERENCES cajas(id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Tabla de movimientos_caja
 CREATE TABLE movimientos_caja (
@@ -196,7 +196,7 @@ CREATE TABLE movimientos_caja (
   monto DECIMAL(10,2) NOT NULL,
   fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (caja_id) REFERENCES cajas(id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Tabla de ventas
 CREATE TABLE ventas (
@@ -218,7 +218,7 @@ CREATE TABLE ventas (
   FOREIGN KEY (cliente_id) REFERENCES clientes(id),
   FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
   FOREIGN KEY (caja_id) REFERENCES cajas(id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Tabla detalle_venta
 CREATE TABLE detalle_venta (
@@ -230,7 +230,7 @@ CREATE TABLE detalle_venta (
   subtotal DECIMAL(10,2) GENERATED ALWAYS AS (cantidad * precio_unitario) STORED,
   FOREIGN KEY (venta_id) REFERENCES ventas(id),
   FOREIGN KEY (articulo_id) REFERENCES articulos(id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Tabla pagos
 CREATE TABLE pagos (
@@ -243,7 +243,7 @@ CREATE TABLE pagos (
   observaciones TEXT,
   FOREIGN KEY (cliente_id) REFERENCES clientes(id),
   FOREIGN KEY (caja_id) REFERENCES cajas(id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Tabla cuentas_corrientes
 CREATE TABLE cuentas_corrientes (
@@ -257,7 +257,7 @@ CREATE TABLE cuentas_corrientes (
   saldo DECIMAL(10,2),
   FOREIGN KEY (cliente_id) REFERENCES clientes(id),
   FOREIGN KEY (venta_id) REFERENCES ventas(id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Tabla logs
 CREATE TABLE logs (
@@ -271,5 +271,5 @@ CREATE TABLE logs (
   datos_anteriores TEXT,
   datos_nuevos TEXT,
   FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
