@@ -109,7 +109,7 @@ CREATE TABLE proveedores (
   nombre VARCHAR(100) NOT NULL,
   razon_social VARCHAR(150),
   cuit VARCHAR(15),
-  email VARCHAR(100),
+  email VARCHAR(100) UNIQUE,
   telefono VARCHAR(20),
   direccion VARCHAR(255),
   ciudad_id INT,
