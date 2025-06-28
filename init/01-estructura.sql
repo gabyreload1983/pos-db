@@ -126,26 +126,42 @@ CREATE TABLE proveedores (
 CREATE TABLE articulos (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(100) NOT NULL,
-  descripcion TEXT,
+  descripcion TEXT DEFAULT NULL,
   costo DECIMAL(10,2) NOT NULL,
   iva_id INT NOT NULL,
   moneda_id INT NOT NULL,
-  renta DECIMAL(5,2) DEFAULT 0.00,
-  precio_venta DECIMAL(10,2),
-  categoria_id INT,
-  marca_id INT,
-  proveedor_id INT,
-  codigo_barra VARCHAR(50),
-  unidad_medida VARCHAR(20),
+  renta DECIMAL(5,2) NOT NULL,
+  precio_venta DECIMAL(10,2) NOT NULL,
+
+  categoria_id INT DEFAULT NULL,
+  marca_id INT DEFAULT NULL,
+  proveedor_id INT DEFAULT NULL,
+  codigo_barra VARCHAR(50) UNIQUE DEFAULT NULL,
+  unidad_medida VARCHAR(20) DEFAULT NULL,
+  controla_stock TINYINT(1) DEFAULT 1,
   activo TINYINT(1) DEFAULT 1,
+
   creado_en DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
   FOREIGN KEY (iva_id) REFERENCES iva(id),
   FOREIGN KEY (moneda_id) REFERENCES monedas(id),
   FOREIGN KEY (categoria_id) REFERENCES categorias(id),
   FOREIGN KEY (marca_id) REFERENCES marcas(id),
   FOREIGN KEY (proveedor_id) REFERENCES proveedores(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE cotizaciones_dolar (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  fecha DATE NOT NULL,
+  valor DECIMAL(10,4) NOT NULL, -- valor del dólar en pesos
+  fuente VARCHAR(100),          -- opcional: "AFIP", "BCRA", etc.
+  activo TINYINT(1) DEFAULT 0,  -- 1: vigente / 0: histórica
+
+  UNIQUE KEY (fecha),
+  INDEX (activo)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 
 -- Tabla de stock
@@ -226,11 +242,23 @@ CREATE TABLE detalle_venta (
   venta_id INT NOT NULL,
   articulo_id INT NOT NULL,
   cantidad INT NOT NULL,
-  precio_unitario DECIMAL(10,2) NOT NULL,
+
+  precio_base DECIMAL(10,2) NOT NULL, 
+  tipo_ajuste ENUM('ninguno','descuento','recargo') DEFAULT 'ninguno',
+  porcentaje_ajuste DECIMAL(5,2) DEFAULT 0.00,
+
+  precio_unitario DECIMAL(10,2) NOT NULL, -- SIEMPRE en pesos argentinos
+  moneda_id INT NOT NULL,                 -- moneda del precio base
+  cotizacion_dolar DECIMAL(10,4) DEFAULT NULL, -- cotización usada si es USD
+
   subtotal DECIMAL(10,2) GENERATED ALWAYS AS (cantidad * precio_unitario) STORED,
+
   FOREIGN KEY (venta_id) REFERENCES ventas(id),
-  FOREIGN KEY (articulo_id) REFERENCES articulos(id)
+  FOREIGN KEY (articulo_id) REFERENCES articulos(id),
+  FOREIGN KEY (moneda_id) REFERENCES monedas(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
 
 -- Tabla pagos
 CREATE TABLE pagos (
