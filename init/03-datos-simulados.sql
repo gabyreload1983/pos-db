@@ -1,76 +1,17 @@
+-- Artículos de prueba actualizados
+INSERT INTO articulos (nombre, costo, iva_id, moneda_id, renta, precio_venta, categoria_id, marca_id, proveedor_id, codigo_barra, unidad_medida)
+VALUES 
+('Articulo1', 342.91, 4, 1, 35.00, 900.84, 1, 1, 1, '100000000001', 'unidad'),
+('Articulo2', 129.08, 4, 1, 40.00, 737.49, 1, 1, 1, '100000000002', 'unidad'),
+('Articulo3', 315.46, 4, 1, 30.00, 674.77, 1, 1, 1, '100000000003', 'unidad'),
+('Articulo4', 129.59, 4, 1, 45.00, 798.42, 1, 1, 1, '100000000004', 'unidad'),
+('Articulo5', 210.65, 4, 1, 38.00, 715.99, 1, 1, 1, '100000000005', 'unidad'),
+('Articulo6', 494.67, 4, 1, 25.00, 746.28, 1, 1, 1, '100000000006', 'unidad'),
+('Articulo7', 424.00, 4, 1, 40.00, 998.98, 1, 1, 1, '100000000007', 'unidad'),
+('Articulo8', 328.45, 4, 1, 37.00, 813.20, 1, 1, 1, '100000000008', 'unidad'),
+('Articulo9', 258.12, 4, 1, 36.00, 610.26, 1, 1, 1, '100000000009', 'unidad'),
+('Articulo10', 399.04, 4, 1, 35.00, 777.27, 1, 1, 1, '100000000010', 'unidad');
 
--- Usuarios de prueba
-INSERT INTO usuarios (nombre, email, password, rol_id) VALUES
-('Administrador', 'admin@pos.com', '$2b$10$iKmyx/cuss.tdXRVVwJsx.RcVCXOkFRbb0B69ahw.Os4Len.UqVGO', 1),
-('Cajero', 'cajero@pos.com', '$2b$10$iKmyx/cuss.tdXRVVwJsx.RcVCXOkFRbb0B69ahw.Os4Len.UqVGO', 2),
-('Vendedor', 'vendedor@pos.com', '$2b$10$iKmyx/cuss.tdXRVVwJsx.RcVCXOkFRbb0B69ahw.Os4Len.UqVGO', 3);
-
-
--- Clientes de prueba
-INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
-VALUES ('Cliente1', 'Apellido1', 'cliente1@mail.com', '342555001', 1, 20);
-INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
-VALUES ('Cliente2', 'Apellido2', 'cliente2@mail.com', '342555002', 1, 20);
-INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
-VALUES ('Cliente3', 'Apellido3', 'cliente3@mail.com', '342555003', 1, 20);
-INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
-VALUES ('Cliente4', 'Apellido4', 'cliente4@mail.com', '342555004', 1, 20);
-INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
-VALUES ('Cliente5', 'Apellido5', 'cliente5@mail.com', '342555005', 1, 20);
-INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
-VALUES ('Cliente6', 'Apellido6', 'cliente6@mail.com', '342555006', 1, 20);
-INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
-VALUES ('Cliente7', 'Apellido7', 'cliente7@mail.com', '342555007', 1, 20);
-INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
-VALUES ('Cliente8', 'Apellido8', 'cliente8@mail.com', '342555008', 1, 20);
-INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
-VALUES ('Cliente9', 'Apellido9', 'cliente9@mail.com', '342555009', 1, 20);
-INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
-VALUES ('Cliente10', 'Apellido10', 'cliente10@mail.com', '3425550010', 1, 20);
-
--- Proveedores de prueba
-INSERT INTO proveedores (nombre, email, telefono, ciudad_id, provincia_id)
-VALUES ('Proveedor1', 'proveedor1@mail.com', '342555101', 1, 20);
-INSERT INTO proveedores (nombre, email, telefono, ciudad_id, provincia_id)
-VALUES ('Proveedor2', 'proveedor2@mail.com', '342555102', 1, 20);
-INSERT INTO proveedores (nombre, email, telefono, ciudad_id, provincia_id)
-VALUES ('Proveedor3', 'proveedor3@mail.com', '342555103', 1, 20);
-INSERT INTO proveedores (nombre, email, telefono, ciudad_id, provincia_id)
-VALUES ('Proveedor4', 'proveedor4@mail.com', '342555104', 1, 20);
-INSERT INTO proveedores (nombre, email, telefono, ciudad_id, provincia_id)
-VALUES ('Proveedor5', 'proveedor5@mail.com', '342555105', 1, 20);
-
--- Categorías
-INSERT INTO categorias (nombre) VALUES ('Alimentos'), ('Bebidas'), ('Limpieza');
-
--- Marcas
-INSERT INTO marcas (nombre) VALUES ('MarcaA'), ('MarcaB'), ('MarcaC');
-
--- Artículos de prueba
-INSERT INTO articulos (nombre, costo, iva_id, moneda_id, categoria_id, marca_id, proveedor_id, precio_venta)
-VALUES ('Articulo1', 342.91, 4, 1, 1, 1, 1, 900.84);
-INSERT INTO articulos (nombre, costo, iva_id, moneda_id, categoria_id, marca_id, proveedor_id, precio_venta)
-VALUES ('Articulo2', 129.08, 4, 1, 1, 1, 1, 737.49);
-INSERT INTO articulos (nombre, costo, iva_id, moneda_id, categoria_id, marca_id, proveedor_id, precio_venta)
-VALUES ('Articulo3', 315.46, 4, 1, 1, 1, 1, 674.77);
-INSERT INTO articulos (nombre, costo, iva_id, moneda_id, categoria_id, marca_id, proveedor_id, precio_venta)
-VALUES ('Articulo4', 129.59, 4, 1, 1, 1, 1, 798.42);
-INSERT INTO articulos (nombre, costo, iva_id, moneda_id, categoria_id, marca_id, proveedor_id, precio_venta)
-VALUES ('Articulo5', 210.65, 4, 1, 1, 1, 1, 715.99);
-INSERT INTO articulos (nombre, costo, iva_id, moneda_id, categoria_id, marca_id, proveedor_id, precio_venta)
-VALUES ('Articulo6', 494.67, 4, 1, 1, 1, 1, 746.28);
-INSERT INTO articulos (nombre, costo, iva_id, moneda_id, categoria_id, marca_id, proveedor_id, precio_venta)
-VALUES ('Articulo7', 424.00, 4, 1, 1, 1, 1, 998.98);
-INSERT INTO articulos (nombre, costo, iva_id, moneda_id, categoria_id, marca_id, proveedor_id, precio_venta)
-VALUES ('Articulo8', 328.45, 4, 1, 1, 1, 1, 813.20);
-INSERT INTO articulos (nombre, costo, iva_id, moneda_id, categoria_id, marca_id, proveedor_id, precio_venta)
-VALUES ('Articulo9', 258.12, 4, 1, 1, 1, 1, 610.26);
-INSERT INTO articulos (nombre, costo, iva_id, moneda_id, categoria_id, marca_id, proveedor_id, precio_venta)
-VALUES ('Articulo10', 399.04, 4, 1, 1, 1, 1, 777.27);
-
--- Sucursal por defecto
-INSERT INTO sucursales (nombre, direccion, ciudad_id, provincia_id, telefono, email)
-VALUES ('Sucursal Central', 'Calle Principal 123', 1, 20, '3424441111', 'sucursal@mail.com');
 
 -- Stock inicial
 INSERT INTO stock (articulo_id, sucursal_id, cantidad) VALUES (1, 1, 64);
@@ -159,66 +100,38 @@ INSERT INTO ventas (cliente_id, usuario_id, caja_id, total, tipo_pago, fecha)
 VALUES (10, 1, 6, 1119.18, 'efectivo', '2025-04-08 12:30:00');
 INSERT INTO ventas (cliente_id, usuario_id, caja_id, total, tipo_pago, fecha)
 VALUES (10, 1, 6, 2017.67, 'efectivo', '2025-04-08 13:30:00');
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (1, 7, 3, 415.07);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (2, 7, 3, 430.78);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (3, 4, 3, 429.62);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (4, 2, 5, 412.41);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (5, 7, 3, 278.90);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (6, 1, 1, 306.74);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (7, 10, 4, 492.87);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (8, 8, 2, 424.12);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (9, 1, 5, 342.93);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (10, 2, 5, 421.60);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (11, 4, 1, 496.47);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (12, 5, 1, 383.54);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (13, 10, 5, 360.87);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (14, 5, 3, 211.99);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (15, 2, 5, 221.41);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (16, 3, 2, 270.59);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (17, 3, 4, 388.94);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (18, 2, 2, 306.95);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (19, 5, 1, 357.77);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (20, 10, 4, 426.04);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (21, 5, 3, 392.10);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (22, 6, 4, 270.30);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (23, 2, 3, 327.39);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (24, 8, 2, 431.90);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (25, 1, 4, 425.89);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (26, 3, 4, 202.75);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (27, 3, 4, 220.65);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (28, 6, 1, 215.48);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (29, 3, 1, 363.64);
-INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_unitario)
-VALUES (30, 8, 5, 398.00);
+-- Detalle de ventas actualizado
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (1, 7, 3, 998.98, 'ninguno', 0.00, 415.07, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (2, 7, 3, 998.98, 'ninguno', 0.00, 430.78, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (3, 4, 3, 798.42, 'ninguno', 0.00, 429.62, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (4, 2, 5, 737.49, 'ninguno', 0.00, 412.41, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (5, 7, 3, 998.98, 'ninguno', 0.00, 278.90, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (6, 1, 1, 900.84, 'ninguno', 0.00, 306.74, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (7, 10, 4, 777.27, 'ninguno', 0.00, 492.87, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (8, 8, 2, 813.2, 'ninguno', 0.00, 424.12, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (9, 1, 5, 900.84, 'ninguno', 0.00, 342.93, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (10, 2, 5, 737.49, 'ninguno', 0.00, 421.60, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (11, 4, 1, 798.42, 'ninguno', 0.00, 496.47, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (12, 5, 1, 715.99, 'ninguno', 0.00, 383.54, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (13, 10, 5, 777.27, 'ninguno', 0.00, 360.87, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (14, 5, 3, 715.99, 'ninguno', 0.00, 211.99, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (15, 2, 5, 737.49, 'ninguno', 0.00, 221.41, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (16, 3, 2, 674.77, 'ninguno', 0.00, 270.59, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (17, 3, 4, 674.77, 'ninguno', 0.00, 388.94, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (18, 2, 2, 737.49, 'ninguno', 0.00, 306.95, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (19, 5, 1, 715.99, 'ninguno', 0.00, 357.77, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (20, 10, 4, 777.27, 'ninguno', 0.00, 426.04, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (21, 5, 3, 715.99, 'ninguno', 0.00, 392.10, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (22, 6, 4, 746.28, 'ninguno', 0.00, 270.30, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (23, 2, 3, 737.49, 'ninguno', 0.00, 327.39, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (24, 8, 2, 813.2, 'ninguno', 0.00, 431.90, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (25, 1, 4, 900.84, 'ninguno', 0.00, 425.89, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (26, 3, 4, 674.77, 'ninguno', 0.00, 202.75, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (27, 3, 4, 674.77, 'ninguno', 0.00, 220.65, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (28, 6, 1, 746.28, 'ninguno', 0.00, 215.48, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (29, 3, 1, 674.77, 'ninguno', 0.00, 363.64, 1, NULL);
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar) VALUES (30, 8, 5, 813.2, 'ninguno', 0.00, 398.00, 1, NULL);
+
 INSERT INTO cuentas_corrientes (cliente_id, venta_id, fecha, tipo_movimiento, descripcion, monto, saldo)
 VALUES (9, 1, '2025-06-22', 'venta', 'Venta a cuenta', 1927.26, 1927.26);
 INSERT INTO cuentas_corrientes (cliente_id, venta_id, fecha, tipo_movimiento, descripcion, monto, saldo)
@@ -357,3 +270,22 @@ INSERT INTO pagos (cliente_id, caja_id, fecha, monto, forma_pago, observaciones)
 VALUES (1, 6, '2025-04-08 10:00:00', 1135.36, 'transferencia', 'Pago parcial de cuenta.');
 INSERT INTO cuentas_corrientes (cliente_id, fecha, tipo_movimiento, descripcion, monto, saldo)
 VALUES (1, '2025-04-08', 'pago', 'Pago recibido', 1135.36, 0);
+
+
+-- Artículos en dólares
+INSERT INTO articulos (nombre, costo, iva_id, moneda_id, renta, precio_venta, categoria_id, marca_id, proveedor_id, codigo_barra, unidad_medida)
+VALUES 
+('ArticuloUSD1', 10.00, 4, 2, 40.00, 25.00, 1, 1, 1, '200000000001', 'unidad'),
+('ArticuloUSD2', 15.00, 4, 2, 50.00, 40.00, 1, 1, 1, '200000000002', 'unidad'),
+('ArticuloUSD3', 20.00, 4, 2, 30.00, 50.00, 1, 1, 1, '200000000003', 'unidad');
+
+-- Venta con artículos en USD
+INSERT INTO ventas (cliente_id, usuario_id, caja_id, total, tipo_pago, fecha)
+VALUES (1, 1, 1, 13780.00, 'efectivo', '2025-06-22 14:00:00');
+
+-- Detalle de venta en USD
+INSERT INTO detalle_venta (venta_id, articulo_id, cantidad, precio_base, tipo_ajuste, porcentaje_ajuste, precio_unitario, moneda_id, cotizacion_dolar)
+VALUES 
+(31, 11, 1, 25.00, 'ninguno', 0.00, 8662.50, 2, 346.50),
+(31, 12, 1, 40.00, 'recargo', 5.00, 14538.00, 2, 346.50),
+(31, 13, 1, 50.00, 'descuento', 10.00, 15592.50, 2, 346.50);
