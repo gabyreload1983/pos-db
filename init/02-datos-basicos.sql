@@ -58,3 +58,55 @@ INSERT INTO monedas (id, nombre, simbolo, codigo_iso) VALUES
 (1, 'Peso Argentino', '$', 'ARS'),
 (2, 'Dólar Estadounidense', 'U$', 'USD'),
 (3, 'Euro', '€', 'EUR');
+
+
+-- Usuarios de prueba
+INSERT INTO usuarios (nombre, email, password, rol_id) VALUES
+('Administrador', 'admin@pos.com', '$2b$10$iKmyx/cuss.tdXRVVwJsx.RcVCXOkFRbb0B69ahw.Os4Len.UqVGO', 1),
+('Cajero', 'cajero@pos.com', '$2b$10$iKmyx/cuss.tdXRVVwJsx.RcVCXOkFRbb0B69ahw.Os4Len.UqVGO', 2),
+('Vendedor', 'vendedor@pos.com', '$2b$10$iKmyx/cuss.tdXRVVwJsx.RcVCXOkFRbb0B69ahw.Os4Len.UqVGO', 3);
+
+
+-- Clientes de prueba
+INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
+VALUES ('Cliente1', 'Apellido1', 'cliente1@mail.com', '342555001', 1, 20);
+INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
+VALUES ('Cliente2', 'Apellido2', 'cliente2@mail.com', '342555002', 1, 20);
+INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
+VALUES ('Cliente3', 'Apellido3', 'cliente3@mail.com', '342555003', 1, 20);
+INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
+VALUES ('Cliente4', 'Apellido4', 'cliente4@mail.com', '342555004', 1, 20);
+INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
+VALUES ('Cliente5', 'Apellido5', 'cliente5@mail.com', '342555005', 1, 20);
+INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
+VALUES ('Cliente6', 'Apellido6', 'cliente6@mail.com', '342555006', 1, 20);
+INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
+VALUES ('Cliente7', 'Apellido7', 'cliente7@mail.com', '342555007', 1, 20);
+INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
+VALUES ('Cliente8', 'Apellido8', 'cliente8@mail.com', '342555008', 1, 20);
+INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
+VALUES ('Cliente9', 'Apellido9', 'cliente9@mail.com', '342555009', 1, 20);
+INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
+VALUES ('Cliente10', 'Apellido10', 'cliente10@mail.com', '3425550010', 1, 20);
+
+-- Proveedores de prueba
+INSERT INTO proveedores (nombre, email, telefono, ciudad_id, provincia_id)
+VALUES ('Proveedor1', 'proveedor1@mail.com', '342555101', 1, 20);
+INSERT INTO proveedores (nombre, email, telefono, ciudad_id, provincia_id)
+VALUES ('Proveedor2', 'proveedor2@mail.com', '342555102', 1, 20);
+INSERT INTO proveedores (nombre, email, telefono, ciudad_id, provincia_id)
+VALUES ('Proveedor3', 'proveedor3@mail.com', '342555103', 1, 20);
+INSERT INTO proveedores (nombre, email, telefono, ciudad_id, provincia_id)
+VALUES ('Proveedor4', 'proveedor4@mail.com', '342555104', 1, 20);
+INSERT INTO proveedores (nombre, email, telefono, ciudad_id, provincia_id)
+VALUES ('Proveedor5', 'proveedor5@mail.com', '342555105', 1, 20);
+
+-- Categorías
+INSERT INTO categorias (nombre) VALUES ('Alimentos'), ('Bebidas'), ('Limpieza');
+
+-- Marcas
+INSERT INTO marcas (nombre) VALUES ('MarcaA'), ('MarcaB'), ('MarcaC');
+
+-- Sucursal por defecto
+INSERT INTO sucursales (nombre, direccion, ciudad_id, provincia_id, telefono, email)
+VALUES ('Sucursal Central', 'Calle Principal 123', 1, 20, '3424441111', 'sucursal@mail.com');
