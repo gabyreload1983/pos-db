@@ -1,16 +1,23 @@
 -- Artículos de prueba actualizados
-INSERT INTO articulos (nombre, costo, iva_id, moneda_id, renta, precio_venta, categoria_id, marca_id, proveedor_id, codigo_barra, unidad_medida)
+INSERT INTO articulos (nombre, costo, iva_aliquota_id, moneda_id, renta, precio_venta, categoria_id, marca_id, proveedor_id, codigo_barra, unidad_medida)
 VALUES 
-('Articulo1', 342.91, 4, 1, 35.00, 900.84, 1, 1, 1, '100000000001', 'unidad'),
-('Articulo2', 129.08, 4, 1, 40.00, 737.49, 1, 1, 1, '100000000002', 'unidad'),
-('Articulo3', 315.46, 4, 1, 30.00, 674.77, 1, 1, 1, '100000000003', 'unidad'),
-('Articulo4', 129.59, 4, 1, 45.00, 798.42, 1, 1, 1, '100000000004', 'unidad'),
-('Articulo5', 210.65, 4, 1, 38.00, 715.99, 1, 1, 1, '100000000005', 'unidad'),
-('Articulo6', 494.67, 4, 1, 25.00, 746.28, 1, 1, 1, '100000000006', 'unidad'),
-('Articulo7', 424.00, 4, 1, 40.00, 998.98, 1, 1, 1, '100000000007', 'unidad'),
-('Articulo8', 328.45, 4, 1, 37.00, 813.20, 1, 1, 1, '100000000008', 'unidad'),
-('Articulo9', 258.12, 4, 1, 36.00, 610.26, 1, 1, 1, '100000000009', 'unidad'),
-('Articulo10', 399.04, 4, 1, 35.00, 777.27, 1, 1, 1, '100000000010', 'unidad');
+('Articulo1', 342.91, 2, 1, 35.00, 900.84, 1, 1, 1, '100000000001', 'unidad'),
+('Articulo2', 129.08, 2, 1, 40.00, 737.49, 1, 1, 1, '100000000002', 'unidad'),
+('Articulo3', 315.46, 2, 1, 30.00, 674.77, 1, 1, 1, '100000000003', 'unidad'),
+('Articulo4', 129.59, 2, 1, 45.00, 798.42, 1, 1, 1, '100000000004', 'unidad'),
+('Articulo5', 210.65, 2, 1, 38.00, 715.99, 1, 1, 1, '100000000005', 'unidad'),
+('Articulo6', 494.67, 2, 1, 25.00, 746.28, 1, 1, 1, '100000000006', 'unidad'),
+('Articulo7', 424.00, 2, 1, 40.00, 998.98, 1, 1, 1, '100000000007', 'unidad'),
+('Articulo8', 328.45, 2, 1, 37.00, 813.20, 1, 1, 1, '100000000008', 'unidad'),
+('Articulo9', 258.12, 2, 1, 36.00, 610.26, 1, 1, 1, '100000000009', 'unidad'),
+('Articulo10', 399.04, 2, 1, 35.00, 777.27, 1, 1, 1, '100000000010', 'unidad');
+
+-- Artículos en dólares
+INSERT INTO articulos (nombre, costo, iva_aliquota_id, moneda_id, renta, precio_venta, categoria_id, marca_id, proveedor_id, codigo_barra, unidad_medida)
+VALUES 
+('ArticuloUSD1', 10.00, 2, 2, 40.00, 25.00, 1, 1, 1, '200000000001', 'unidad'),
+('ArticuloUSD2', 15.00, 2, 2, 50.00, 40.00, 1, 1, 1, '200000000002', 'unidad'),
+('ArticuloUSD3', 20.00, 2, 2, 30.00, 50.00, 1, 1, 1, '200000000003', 'unidad');
 
 
 -- Stock inicial
@@ -272,12 +279,7 @@ INSERT INTO cuentas_corrientes (cliente_id, fecha, tipo_movimiento, descripcion,
 VALUES (1, '2025-04-08', 'pago', 'Pago recibido', 1135.36, 0);
 
 
--- Artículos en dólares
-INSERT INTO articulos (nombre, costo, iva_id, moneda_id, renta, precio_venta, categoria_id, marca_id, proveedor_id, codigo_barra, unidad_medida)
-VALUES 
-('ArticuloUSD1', 10.00, 4, 2, 40.00, 25.00, 1, 1, 1, '200000000001', 'unidad'),
-('ArticuloUSD2', 15.00, 4, 2, 50.00, 40.00, 1, 1, 1, '200000000002', 'unidad'),
-('ArticuloUSD3', 20.00, 4, 2, 30.00, 50.00, 1, 1, 1, '200000000003', 'unidad');
+
 
 -- Venta con artículos en USD
 INSERT INTO ventas (cliente_id, usuario_id, caja_id, total, tipo_pago, fecha)

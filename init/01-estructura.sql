@@ -37,6 +37,21 @@ CREATE TABLE ciudades (
   FOREIGN KEY (provincia_id) REFERENCES provincias(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- Tabla IVA ALÍCUOTAS (para artículos)
+CREATE TABLE iva_aliquotas (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  descripcion VARCHAR(50) NOT NULL,
+  porcentaje DECIMAL(5,2) NOT NULL,
+  activo TINYINT(1) DEFAULT 1
+);
+
+-- Tabla CONDICIONES IVA (para clientes y proveedores)
+CREATE TABLE condiciones_iva (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(50) NOT NULL UNIQUE,
+  activo TINYINT(1) DEFAULT 1
+);
+
 -- Tabla de sucursales
 CREATE TABLE sucursales (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -59,20 +74,21 @@ CREATE TABLE clientes (
   nombre VARCHAR(100) NOT NULL,
   apellido VARCHAR(100),
   razon_social VARCHAR(150),
-  tipo_documento ENUM('DNI','CUIT','CUIL','Pasaporte') DEFAULT 'DNI',
+  tipo_documento ENUM('DNI','CUIT','CUIL','PASAPORTE') DEFAULT 'DNI',
   numero_documento VARCHAR(20),
   email VARCHAR(100) UNIQUE,
   telefono VARCHAR(20),
   direccion VARCHAR(255),
-  ciudad_id INT NULL,
-  provincia_id INT NULL,
-  condicion_iva ENUM('Responsable Inscripto','Monotributo','Consumidor Final','Exento') DEFAULT 'Consumidor Final',
+  ciudad_id INT,
+  provincia_id INT,
+  condicion_iva_id INT,
   cuit VARCHAR(15),
   activo TINYINT(1) DEFAULT 1,
   creado_en DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (ciudad_id) REFERENCES ciudades(id),
-  FOREIGN KEY (provincia_id) REFERENCES provincias(id)
+  FOREIGN KEY (provincia_id) REFERENCES provincias(id),
+  FOREIGN KEY (condicion_iva_id) REFERENCES condiciones_iva(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
@@ -84,12 +100,6 @@ CREATE TABLE monedas (
   codigo_iso VARCHAR(5) NOT NULL UNIQUE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Tabla de IVA
-CREATE TABLE iva (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  descripcion VARCHAR(50) NOT NULL,
-  porcentaje DECIMAL(5,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Tabla de marcas
 CREATE TABLE marcas (
@@ -114,37 +124,36 @@ CREATE TABLE proveedores (
   direccion VARCHAR(255),
   ciudad_id INT,
   provincia_id INT,
-  condicion_iva ENUM('Responsable Inscripto','Monotributo','Consumidor Final','Exento'),
+  condicion_iva_id INT,
   activo TINYINT(1) DEFAULT 1,
   creado_en DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (ciudad_id) REFERENCES ciudades(id),
-  FOREIGN KEY (provincia_id) REFERENCES provincias(id)
+  FOREIGN KEY (provincia_id) REFERENCES provincias(id),
+  FOREIGN KEY (condicion_iva_id) REFERENCES condiciones_iva(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 -- Tabla de articulos
 CREATE TABLE articulos (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(100) NOT NULL,
-  descripcion TEXT DEFAULT NULL,
+  descripcion TEXT,
   costo DECIMAL(10,2) NOT NULL,
-  iva_id INT NOT NULL,
-  moneda_id INT NOT NULL,
   renta DECIMAL(5,2) NOT NULL,
   precio_venta DECIMAL(10,2) NOT NULL,
-
-  categoria_id INT DEFAULT NULL,
-  marca_id INT DEFAULT NULL,
-  proveedor_id INT DEFAULT NULL,
-  codigo_barra VARCHAR(50) UNIQUE DEFAULT NULL,
-  unidad_medida VARCHAR(20) DEFAULT NULL,
+  iva_aliquota_id INT NOT NULL,
+  moneda_id INT NOT NULL,
+  categoria_id INT,
+  marca_id INT,
+  proveedor_id INT,
+  codigo_barra VARCHAR(50),
+  unidad_medida VARCHAR(20),
   controla_stock TINYINT(1) DEFAULT 1,
   activo TINYINT(1) DEFAULT 1,
-
   creado_en DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-
-  FOREIGN KEY (iva_id) REFERENCES iva(id),
+  FOREIGN KEY (iva_aliquota_id) REFERENCES iva_aliquotas(id),
   FOREIGN KEY (moneda_id) REFERENCES monedas(id),
   FOREIGN KEY (categoria_id) REFERENCES categorias(id),
   FOREIGN KEY (marca_id) REFERENCES marcas(id),

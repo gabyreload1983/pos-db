@@ -45,13 +45,19 @@ INSERT INTO roles (id, nombre) VALUES
 (2, 'Cajero'),
 (3, 'Vendedor');
 
--- Datos iniciales para IVA
-INSERT INTO iva (id, descripcion, porcentaje) VALUES
-(1, 'Exento', 0.00),
-(2, 'No Gravado', 0.00),
-(3, 'IVA 10.5%', 10.50),
-(4, 'IVA 21%', 21.00),
-(5, 'IVA 27%', 27.00);
+-- Datos iniciales para IVA Articulos
+INSERT INTO iva_aliquotas (descripcion, porcentaje) VALUES
+  ('IVA 10.5%', 10.50),
+  ('IVA 21%', 21.00),
+  ('IVA 27%', 27.00);
+
+-- Datos iniciales para IVA Clinetes - Proveedores
+INSERT INTO condiciones_iva (nombre) VALUES
+  ('Responsable Inscripto'),
+  ('Monotributo'),
+  ('Exento'),
+  ('Consumidor Final'),
+  ('No Responsable');
 
 -- Datos iniciales para monedas
 INSERT INTO monedas (id, nombre, simbolo, codigo_iso) VALUES
@@ -68,39 +74,28 @@ INSERT INTO usuarios (nombre, email, password, rol_id) VALUES
 
 
 -- Clientes de prueba
-INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
-VALUES ('Cliente1', 'Apellido1', 'cliente1@mail.com', '342555001', 1, 20);
-INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
-VALUES ('Cliente2', 'Apellido2', 'cliente2@mail.com', '342555002', 1, 20);
-INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
-VALUES ('Cliente3', 'Apellido3', 'cliente3@mail.com', '342555003', 1, 20);
-INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
-VALUES ('Cliente4', 'Apellido4', 'cliente4@mail.com', '342555004', 1, 20);
-INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
-VALUES ('Cliente5', 'Apellido5', 'cliente5@mail.com', '342555005', 1, 20);
-INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
-VALUES ('Cliente6', 'Apellido6', 'cliente6@mail.com', '342555006', 1, 20);
-INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
-VALUES ('Cliente7', 'Apellido7', 'cliente7@mail.com', '342555007', 1, 20);
-INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
-VALUES ('Cliente8', 'Apellido8', 'cliente8@mail.com', '342555008', 1, 20);
-INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
-VALUES ('Cliente9', 'Apellido9', 'cliente9@mail.com', '342555009', 1, 20);
-INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id)
-VALUES ('Cliente10', 'Apellido10', 'cliente10@mail.com', '3425550010', 1, 20);
+INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id, condicion_iva_id)
+VALUES 
+('Cliente1', 'Apellido1', 'cliente1@mail.com', '342555001', 1, 20, 1),
+('Cliente2', 'Apellido2', 'cliente2@mail.com', '342555002', 1, 20, 2),
+('Cliente3', 'Apellido3', 'cliente3@mail.com', '342555003', 1, 20, 3),
+('Cliente4', 'Apellido4', 'cliente4@mail.com', '342555004', 1, 20, 4),
+('Cliente5', 'Apellido5', 'cliente5@mail.com', '342555005', 1, 20, 5),
+('Cliente6', 'Apellido6', 'cliente6@mail.com', '342555006', 1, 20, 1),
+('Cliente7', 'Apellido7', 'cliente7@mail.com', '342555007', 1, 20, 2),
+('Cliente8', 'Apellido8', 'cliente8@mail.com', '342555008', 1, 20, 3),
+('Cliente9', 'Apellido9', 'cliente9@mail.com', '342555009', 1, 20, 4),
+('Cliente10', 'Apellido10', 'cliente10@mail.com', '3425550010', 1, 20, 5);
+
 
 -- Proveedores de prueba
-INSERT INTO proveedores (nombre, email, telefono, ciudad_id, provincia_id)
-VALUES ('Proveedor1', 'proveedor1@mail.com', '342555101', 1, 20);
-INSERT INTO proveedores (nombre, email, telefono, ciudad_id, provincia_id)
-VALUES ('Proveedor2', 'proveedor2@mail.com', '342555102', 1, 20);
-INSERT INTO proveedores (nombre, email, telefono, ciudad_id, provincia_id)
-VALUES ('Proveedor3', 'proveedor3@mail.com', '342555103', 1, 20);
-INSERT INTO proveedores (nombre, email, telefono, ciudad_id, provincia_id)
-VALUES ('Proveedor4', 'proveedor4@mail.com', '342555104', 1, 20);
-INSERT INTO proveedores (nombre, email, telefono, ciudad_id, provincia_id)
-VALUES ('Proveedor5', 'proveedor5@mail.com', '342555105', 1, 20);
-
+INSERT INTO proveedores (nombre, email, telefono, ciudad_id, provincia_id, condicion_iva_id)
+VALUES 
+('Proveedor1', 'proveedor1@mail.com', '342555101', 1, 20, 1),
+('Proveedor2', 'proveedor2@mail.com', '342555102', 1, 20, 2),
+('Proveedor3', 'proveedor3@mail.com', '342555103', 1, 20, 3),
+('Proveedor4', 'proveedor4@mail.com', '342555104', 1, 20, 4),
+('Proveedor5', 'proveedor5@mail.com', '342555105', 1, 20, 5);
 -- Categorías
 INSERT INTO categorias (nombre) VALUES ('Alimentos'), ('Bebidas'), ('Limpieza');
 
