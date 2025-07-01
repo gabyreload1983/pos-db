@@ -53,11 +53,14 @@ INSERT INTO iva_aliquotas (descripcion, porcentaje) VALUES
 
 -- Datos iniciales para IVA Clinetes - Proveedores
 INSERT INTO condiciones_iva (nombre) VALUES
+  ('Consumidor Final'),
   ('Responsable Inscripto'),
   ('Monotributo'),
-  ('Exento'),
-  ('Consumidor Final'),
-  ('No Responsable');
+  ('Exento');
+
+INSERT INTO tipos_documento (nombre) VALUES
+('DNI'), ('CUIT'), ('CUIL'), ('PASAPORTE');
+
 
 -- Datos iniciales para monedas
 INSERT INTO monedas (id, nombre, simbolo, codigo_iso) VALUES
@@ -80,12 +83,12 @@ VALUES
 ('Cliente2', 'Apellido2', 'cliente2@mail.com', '342555002', 1, 20, 2),
 ('Cliente3', 'Apellido3', 'cliente3@mail.com', '342555003', 1, 20, 3),
 ('Cliente4', 'Apellido4', 'cliente4@mail.com', '342555004', 1, 20, 4),
-('Cliente5', 'Apellido5', 'cliente5@mail.com', '342555005', 1, 20, 5),
+('Cliente5', 'Apellido5', 'cliente5@mail.com', '342555005', 1, 20, 4),
 ('Cliente6', 'Apellido6', 'cliente6@mail.com', '342555006', 1, 20, 1),
 ('Cliente7', 'Apellido7', 'cliente7@mail.com', '342555007', 1, 20, 2),
 ('Cliente8', 'Apellido8', 'cliente8@mail.com', '342555008', 1, 20, 3),
 ('Cliente9', 'Apellido9', 'cliente9@mail.com', '342555009', 1, 20, 4),
-('Cliente10', 'Apellido10', 'cliente10@mail.com', '3425550010', 1, 20, 5);
+('Cliente10', 'Apellido10', 'cliente10@mail.com', '3425550010', 1, 20, 4);
 
 
 -- Proveedores de prueba
@@ -95,7 +98,7 @@ VALUES
 ('Proveedor2', 'proveedor2@mail.com', '342555102', 1, 20, 2),
 ('Proveedor3', 'proveedor3@mail.com', '342555103', 1, 20, 3),
 ('Proveedor4', 'proveedor4@mail.com', '342555104', 1, 20, 4),
-('Proveedor5', 'proveedor5@mail.com', '342555105', 1, 20, 5);
+('Proveedor5', 'proveedor5@mail.com', '342555105', 1, 20, 4);
 -- Categorías
 INSERT INTO categorias (nombre) VALUES ('Alimentos'), ('Bebidas'), ('Limpieza');
 
@@ -105,3 +108,4 @@ INSERT INTO marcas (nombre) VALUES ('MarcaA'), ('MarcaB'), ('MarcaC');
 -- Sucursal por defecto
 INSERT INTO sucursales (nombre, direccion, ciudad_id, provincia_id, telefono, email)
 VALUES ('Sucursal Central', 'Calle Principal 123', 1, 20, '3424441111', 'sucursal@mail.com');
+
