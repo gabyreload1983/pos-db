@@ -124,7 +124,7 @@ CREATE TABLE categorias (
 CREATE TABLE proveedores (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(100) NOT NULL,
-  razon_social VARCHAR(150),
+  razon_social VARCHAR(150) NOT NULL,
   cuit VARCHAR(15),
   email VARCHAR(100) UNIQUE,
   telefono VARCHAR(20),
