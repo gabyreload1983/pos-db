@@ -77,30 +77,61 @@ INSERT INTO usuarios (nombre, email, password, rol_id) VALUES
 
 
 -- Clientes de prueba
-INSERT INTO clientes (nombre, apellido, email, telefono, ciudad_id, provincia_id, condicion_iva_id)
-VALUES 
-('Cliente1', 'Apellido1', 'cliente1@mail.com', '342555001', 1, 20, 1),
-('Cliente2', 'Apellido2', 'cliente2@mail.com', '342555002', 1, 20, 2),
-('Cliente3', 'Apellido3', 'cliente3@mail.com', '342555003', 1, 20, 3),
-('Cliente4', 'Apellido4', 'cliente4@mail.com', '342555004', 1, 20, 4),
-('Cliente5', 'Apellido5', 'cliente5@mail.com', '342555005', 1, 20, 4),
-('Cliente6', 'Apellido6', 'cliente6@mail.com', '342555006', 1, 20, 1),
-('Cliente7', 'Apellido7', 'cliente7@mail.com', '342555007', 1, 20, 2),
-('Cliente8', 'Apellido8', 'cliente8@mail.com', '342555008', 1, 20, 3),
-('Cliente9', 'Apellido9', 'cliente9@mail.com', '342555009', 1, 20, 4),
-('Cliente10', 'Apellido10', 'cliente10@mail.com', '3425550010', 1, 20, 4);
+INSERT INTO clientes (
+  nombre, apellido, razon_social, tipo_documento_id, documento,
+  email, telefono, direccion, ciudad_id, provincia_id, condicion_iva_id
+)
+VALUES
+-- Consumidor Final (solo nombre y apellido, sin razon social ni documento obligatorio)
+('Ana', 'Pérez', NULL, NULL, NULL, 'ana.perez@mail.com', '342555001', 'Av. Siempreviva 123', 1, 20, 1),
+
+-- Responsable Inscripto (requiere CUIT, razon social, tipo_documento_id = CUIT)
+(NULL, NULL, 'Empresa SRL', 2, '30123456789', 'empresa@mail.com', '342555002', 'San Martín 456', 2, 20, 2),
+
+-- Monotributo
+(NULL, NULL, 'Comercio Uno', 2, '20987654321', 'monotributo@mail.com', '342555003', 'Belgrano 789', 3, 20, 3),
+
+-- Exento
+(NULL, NULL, 'Fundación Libre', 2, '33111122223', 'exento@mail.com', '342555004', 'Urquiza 147', 4, 20, 4),
+
+-- Otro Consumidor Final
+('Carlos', 'Gómez', NULL, 1, '12345678', 'carlos@mail.com', '342555005', 'Alem 456', 5, 20, 1),
+
+-- Otro Responsable Inscripto
+(NULL, NULL, 'Servicios SRL', 2, '30876543210', 'servicios@mail.com', '342555006', 'Rivadavia 321', 6, 20, 2),
+
+-- Otro Monotributo
+(NULL, NULL, 'Monotributista SA', 2, '20102030405', 'mono2@mail.com', '342555007', 'Sarmiento 900', 7, 20, 3),
+
+-- Otro Exento
+(NULL, NULL, 'ONG Verde', 2, '33555566667', 'ongverde@mail.com', '342555008', 'Mitre 2020', 8, 20, 4);
+
 
 
 -- Proveedores de prueba
-INSERT INTO proveedores (nombre, email, telefono, ciudad_id, provincia_id, condicion_iva_id)
-VALUES 
-('Proveedor1', 'proveedor1@mail.com', '342555101', 1, 20, 1),
-('Proveedor2', 'proveedor2@mail.com', '342555102', 1, 20, 2),
-('Proveedor3', 'proveedor3@mail.com', '342555103', 1, 20, 3),
-('Proveedor4', 'proveedor4@mail.com', '342555104', 1, 20, 4),
-('Proveedor5', 'proveedor5@mail.com', '342555105', 1, 20, 4);
+INSERT INTO proveedores (
+  nombre, razon_social, cuit, email, telefono, direccion,
+  ciudad_id, provincia_id, condicion_iva_id
+)
+VALUES
+-- Consumidor Final (puede no tener CUIT)
+('Proveedor CF', 'Proveedor Consumidor Final', NULL, 'provcf@mail.com', '342555101', '9 de Julio 100', 1, 20, 1),
+
+-- Responsable Inscripto
+('Proveedor RI', 'Proveedor Responsable Inscripto', '30123456789', 'provri@mail.com', '342555102', '25 de Mayo 200', 2, 20, 2),
+
+-- Monotributo
+('Proveedor Mono', 'Proveedor Monotributista', '20987654321', 'provmono@mail.com', '342555103', 'Belgrano 300', 3, 20, 3),
+
+-- Exento
+('Proveedor Exento', 'Proveedor Exento SA', '33111122223', 'provexento@mail.com', '342555104', 'Urquiza 400', 4, 20, 4),
+
+-- Otro Responsable Inscripto
+('Proveedor SRL', 'Proveedor Servicios SRL', '30876543210', 'provsrl@mail.com', '342555105', 'Rivadavia 500', 5, 20, 2);
+
+
 -- Categorías
-INSERT INTO categorias (nombre) VALUES ('Alimentos'), ('Bebidas'), ('Limpieza');
+INSERT INTO categorias (nombre) VALUES ('Categoria1'), ('Categoria2'), ('Categoria3');
 
 -- Marcas
 INSERT INTO marcas (nombre) VALUES ('MarcaA'), ('MarcaB'), ('MarcaC');
