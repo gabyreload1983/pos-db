@@ -52,6 +52,13 @@ CREATE TABLE condiciones_iva (
   activo TINYINT(1) DEFAULT 1
 );
 
+CREATE TABLE tipos_documento (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(50) NOT NULL UNIQUE,
+  activo TINYINT(1) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
 -- Tabla de sucursales
 CREATE TABLE sucursales (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -71,21 +78,21 @@ CREATE TABLE sucursales (
 -- Tabla de clientes
 CREATE TABLE clientes (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  nombre VARCHAR(100) NOT NULL,
-  apellido VARCHAR(100),
-  razon_social VARCHAR(150),
-  tipo_documento ENUM('DNI','CUIT','CUIL','PASAPORTE') DEFAULT 'DNI',
-  numero_documento VARCHAR(20),
+  nombre VARCHAR(100) NULL,
+  apellido VARCHAR(100) NULL,
+  razon_social VARCHAR(150) NULL,
+  tipo_documento_id INT NULL,
+  documento VARCHAR(20) NULL,
   email VARCHAR(100) UNIQUE,
   telefono VARCHAR(20),
   direccion VARCHAR(255),
   ciudad_id INT,
   provincia_id INT,
   condicion_iva_id INT,
-  cuit VARCHAR(15),
   activo TINYINT(1) DEFAULT 1,
   creado_en DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (tipo_documento_id) REFERENCES tipos_documento(id),
   FOREIGN KEY (ciudad_id) REFERENCES ciudades(id),
   FOREIGN KEY (provincia_id) REFERENCES provincias(id),
   FOREIGN KEY (condicion_iva_id) REFERENCES condiciones_iva(id)
