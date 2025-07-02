@@ -157,6 +157,7 @@ CREATE TABLE articulos (
   codigo_barra VARCHAR(50),
   unidad_medida VARCHAR(20),
   controla_stock TINYINT(1) DEFAULT 1,
+  tiene_nro_serie TINYINT(1) DEFAULT 0,
   activo TINYINT(1) DEFAULT 1,
   creado_en DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -166,6 +167,19 @@ CREATE TABLE articulos (
   FOREIGN KEY (marca_id) REFERENCES marcas(id),
   FOREIGN KEY (proveedor_id) REFERENCES proveedores(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE numeros_serie (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  articulo_id INT NOT NULL,
+  nro_serie VARCHAR(100) NOT NULL,
+  sucursal_id INT NOT NULL,
+  estado ENUM('disponible', 'vendido', 'devuelto') DEFAULT 'disponible',
+  fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (articulo_id) REFERENCES articulos(id),
+  FOREIGN KEY (sucursal_id) REFERENCES sucursales(id),
+  UNIQUE (nro_serie, articulo_id)
+);
+
 
 CREATE TABLE cotizaciones_dolar (
   id INT AUTO_INCREMENT PRIMARY KEY,
