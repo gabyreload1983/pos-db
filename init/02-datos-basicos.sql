@@ -140,3 +140,27 @@ INSERT INTO marcas (nombre) VALUES ('MarcaA'), ('MarcaB'), ('MarcaC');
 INSERT INTO sucursales (nombre, direccion, ciudad_id, provincia_id, telefono, email)
 VALUES ('Sucursal Central', 'Calle Principal 123', 1, 20, '3424441111', 'sucursal@mail.com');
 
+INSERT INTO articulos (
+  nombre, costo, iva_aliquota_id, moneda_id, renta, precio_venta, categoria_id,
+  marca_id, proveedor_id, codigo_barra, unidad_medida, controla_stock, tiene_nro_serie
+)
+VALUES 
+('Articulo1', 342.91, 2, 1, 35.00, 900.84, 1, 1, 1, '100000000001', 'unidad', 1, 1),
+('Articulo2', 129.08, 2, 1, 40.00, 737.49, 1, 1, 1, '100000000002', 'unidad', 1, 1),
+('Articulo3', 315.46, 2, 1, 30.00, 674.77, 1, 1, 1, '100000000003', 'unidad', 1, 0),
+('Articulo4', 129.59, 2, 1, 45.00, 798.42, 1, 1, 1, '100000000004', 'unidad', 1, 0),
+('Articulo5', 210.65, 2, 1, 38.00, 715.99, 1, 1, 1, '100000000005', 'unidad', 1, 0),
+('Articulo6', 494.67, 2, 1, 25.00, 746.28, 1, 1, 1, '100000000006', 'unidad', 1, 0),
+('Articulo7', 424.00, 2, 1, 40.00, 998.98, 1, 1, 1, '100000000007', 'unidad', 1, 0),
+('Articulo8', 328.45, 2, 1, 37.00, 813.20, 1, 1, 1, '100000000008', 'unidad', 1, 0),
+('Articulo9', 258.12, 2, 1, 36.00, 610.26, 1, 1, 1, '100000000009', 'unidad', 1, 0),
+('Articulo10', 399.04, 2, 1, 35.00, 777.27, 1, 1, 1, '100000000010', 'unidad', 1, 0);
+
+INSERT INTO articulos (
+  nombre, costo, iva_aliquota_id, moneda_id, renta, precio_venta, categoria_id,
+  marca_id, proveedor_id, codigo_barra, unidad_medida, controla_stock, tiene_nro_serie
+)
+VALUES 
+('ArticuloUSD1', 10.00, 2, 2, 40.00, 25.00, 1, 1, 1, '200000000001', 'unidad', 1, 1),
+('ArticuloUSD2', 15.00, 2, 2, 50.00, 40.00, 1, 1, 1, '200000000002', 'unidad', 1, 0),
+('ArticuloUSD3', 20.00, 2, 2, 30.00, 50.00, 1, 1, 1, '200000000003', 'unidad', 1, 0);

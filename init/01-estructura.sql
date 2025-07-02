@@ -288,6 +288,14 @@ CREATE TABLE detalle_venta (
   FOREIGN KEY (moneda_id) REFERENCES monedas(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE detalle_venta_series (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  detalle_venta_id INT NOT NULL,
+  nro_serie VARCHAR(100) NOT NULL,
+  FOREIGN KEY (detalle_venta_id) REFERENCES detalle_venta(id),
+  UNIQUE (detalle_venta_id, nro_serie)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 
 -- Tabla pagos
