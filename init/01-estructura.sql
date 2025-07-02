@@ -145,7 +145,9 @@ CREATE TABLE proveedores (
 CREATE TABLE articulos (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(100) NOT NULL,
+  slug VARCHAR(150) UNIQUE,
   descripcion TEXT,
+  descripcion_larga TEXT,
   costo DECIMAL(10,2) NOT NULL,
   renta DECIMAL(5,2) NOT NULL,
   precio_venta DECIMAL(10,2) NOT NULL,
@@ -159,6 +161,10 @@ CREATE TABLE articulos (
   controla_stock TINYINT(1) DEFAULT 1,
   tiene_nro_serie TINYINT(1) DEFAULT 0,
   activo TINYINT(1) DEFAULT 1,
+  publicado_web TINYINT(1) DEFAULT 0,
+  seo_title VARCHAR(150),
+  seo_description TEXT,
+  external_id VARCHAR(100),
   creado_en DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (iva_aliquota_id) REFERENCES iva_aliquotas(id),
@@ -167,6 +173,16 @@ CREATE TABLE articulos (
   FOREIGN KEY (marca_id) REFERENCES marcas(id),
   FOREIGN KEY (proveedor_id) REFERENCES proveedores(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS articulo_imagenes (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  articulo_id INT NOT NULL,
+  url_imagen TEXT NOT NULL,
+  orden INT DEFAULT 0,
+  activo TINYINT(1) DEFAULT 1,
+  creado_en DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (articulo_id) REFERENCES articulos(id)
+);
 
 CREATE TABLE numeros_serie (
   id INT AUTO_INCREMENT PRIMARY KEY,
