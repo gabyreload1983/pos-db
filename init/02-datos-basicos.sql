@@ -164,3 +164,13 @@ VALUES
 ('ArticuloUSD1', 10.00, 2, 2, 40.00, 25.00, 1, 1, 1, '200000000001', 'unidad', 1, 1),
 ('ArticuloUSD2', 15.00, 2, 2, 50.00, 40.00, 1, 1, 1, '200000000002', 'unidad', 1, 0),
 ('ArticuloUSD3', 20.00, 2, 2, 30.00, 50.00, 1, 1, 1, '200000000003', 'unidad', 1, 0);
+
+INSERT INTO tipos_comprobante (nombre) VALUES
+('Factura A'),
+('Factura B'),
+('Factura C'),
+('Nota de Crédito A'),
+('Nota de Crédito B'),
+('Remito'),
+('Factura E'),
+('Factura M');
