@@ -252,6 +252,8 @@ CREATE TABLE compras (
   numero_comprobante INT,
   fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
   total DECIMAL(10,2) NOT NULL,
+  mueve_stock TINYINT(1) DEFAULT 1,
+  estado_remito ENUM('sin remitir', 'parcial', 'completo') DEFAULT 'sin remitir',
   observaciones TEXT,
   FOREIGN KEY (proveedor_id) REFERENCES proveedores(id),
   FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
@@ -280,6 +282,52 @@ CREATE TABLE detalle_compra_series (
   UNIQUE (detalle_compra_id, nro_serie),
   FOREIGN KEY (detalle_compra_id) REFERENCES detalle_compra(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+CREATE TABLE remitos_compra (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  proveedor_id INT NOT NULL,
+  usuario_id INT NOT NULL,
+  sucursal_id INT NOT NULL,
+  fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
+  observaciones TEXT,
+  total DECIMAL(10,2) NOT NULL,
+  FOREIGN KEY (proveedor_id) REFERENCES proveedores(id),
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
+  FOREIGN KEY (sucursal_id) REFERENCES sucursales(id)
+);
+
+
+CREATE TABLE detalle_remito_compra (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  remito_id INT NOT NULL,
+  articulo_id INT NOT NULL,
+  cantidad INT NOT NULL,
+  detalle_compra_id INT,
+  FOREIGN KEY (remito_id) REFERENCES remitos_compra(id),
+  FOREIGN KEY (articulo_id) REFERENCES articulos(id),
+  FOREIGN KEY (detalle_compra_id) REFERENCES detalle_compra(id)
+);
+
+
+CREATE TABLE detalle_remito_series (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  detalle_remito_id INT NOT NULL,
+  nro_serie VARCHAR(100) NOT NULL,
+  FOREIGN KEY (detalle_remito_id) REFERENCES detalle_remito_compra(id),
+  UNIQUE (detalle_remito_id, nro_serie)
+);
+
+
+CREATE TABLE remito_factura_compra (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  compra_id INT NOT NULL,
+  remito_id INT NOT NULL,
+  FOREIGN KEY (compra_id) REFERENCES compras(id),
+  FOREIGN KEY (remito_id) REFERENCES remitos_compra(id),
+  UNIQUE(compra_id, remito_id)
+);
+
 
 CREATE TABLE movimientos_stock (
   id INT AUTO_INCREMENT PRIMARY KEY,
