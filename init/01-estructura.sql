@@ -286,7 +286,7 @@ CREATE TABLE detalle_compra_series (
 
 CREATE TABLE remitos_compra (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  proveedor_id INT NOT NULL,
+  proveedor_id INT,
   usuario_id INT NOT NULL,
   sucursal_id INT NOT NULL,
   fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
