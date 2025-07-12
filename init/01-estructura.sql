@@ -281,6 +281,7 @@ CREATE TABLE detalle_compra_series (
   detalle_compra_id INT NOT NULL,
   nro_serie VARCHAR(100) NOT NULL,
   UNIQUE (detalle_compra_id, nro_serie),
+  UNIQUE KEY unique_nro_serie_compra (nro_serie),
   FOREIGN KEY (detalle_compra_id) REFERENCES detalle_compra(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -315,9 +316,10 @@ CREATE TABLE detalle_remito_series (
   id INT AUTO_INCREMENT PRIMARY KEY,
   detalle_remito_id INT NOT NULL,
   nro_serie VARCHAR(100) NOT NULL,
-  FOREIGN KEY (detalle_remito_id) REFERENCES detalle_remito_compra(id),
-  UNIQUE (detalle_remito_id, nro_serie)
-);
+  UNIQUE (detalle_remito_id, nro_serie),
+  UNIQUE KEY unique_nro_serie_remito (nro_serie),
+  FOREIGN KEY (detalle_remito_id) REFERENCES detalle_remito_compra(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 CREATE TABLE remito_factura_compra (
