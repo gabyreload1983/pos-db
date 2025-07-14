@@ -140,6 +140,9 @@ INSERT INTO marcas (nombre) VALUES ('MarcaA'), ('MarcaB'), ('MarcaC');
 INSERT INTO sucursales (nombre, direccion, ciudad_id, provincia_id, telefono, email)
 VALUES ('Sucursal Central', 'Calle Principal 123', 1, 20, '3424441111', 'sucursal@mail.com');
 
+INSERT INTO usuarios_sucursales (usuario_id, sucursal_id)
+VALUES (1, 1), (2, 1), (3, 1);
+
 INSERT INTO articulos (
   nombre, costo, iva_aliquota_id, moneda_id, renta, precio_venta, categoria_id,
   marca_id, proveedor_id, codigo_barra, unidad_medida, controla_stock, tiene_nro_serie
@@ -165,6 +168,21 @@ VALUES
 ('ArticuloUSD2', 15.00, 2, 2, 50.00, 40.00, 1, 1, 1, '200000000002', 'unidad', 1, 0),
 ('ArticuloUSD3', 20.00, 2, 2, 30.00, 50.00, 1, 1, 1, '200000000003', 'unidad', 1, 0);
 
+-- Stock inicial
+INSERT INTO stock (articulo_id, sucursal_id, cantidad) VALUES (1, 1, 64);
+INSERT INTO stock (articulo_id, sucursal_id, cantidad) VALUES (2, 1, 59);
+INSERT INTO stock (articulo_id, sucursal_id, cantidad) VALUES (3, 1, 43);
+INSERT INTO stock (articulo_id, sucursal_id, cantidad) VALUES (4, 1, 53);
+INSERT INTO stock (articulo_id, sucursal_id, cantidad) VALUES (5, 1, 55);
+INSERT INTO stock (articulo_id, sucursal_id, cantidad) VALUES (6, 1, 14);
+INSERT INTO stock (articulo_id, sucursal_id, cantidad) VALUES (7, 1, 45);
+INSERT INTO stock (articulo_id, sucursal_id, cantidad) VALUES (8, 1, 79);
+INSERT INTO stock (articulo_id, sucursal_id, cantidad) VALUES (9, 1, 25);
+INSERT INTO stock (articulo_id, sucursal_id, cantidad) VALUES (10, 1, 55);
+INSERT INTO stock (articulo_id, sucursal_id, cantidad) VALUES (11, 1, 55);
+INSERT INTO stock (articulo_id, sucursal_id, cantidad) VALUES (12, 1, 55);
+INSERT INTO stock (articulo_id, sucursal_id, cantidad) VALUES (13, 1, 55);
+
 INSERT INTO tipos_comprobante (nombre) VALUES
 ('Factura A'),
 ('Factura B'),
@@ -174,3 +192,10 @@ INSERT INTO tipos_comprobante (nombre) VALUES
 ('Remito'),
 ('Factura E'),
 ('Factura M');
+
+-- Cajas abiertas
+INSERT INTO cajas (usuario_id, sucursal_id, fecha_apertura, saldo_inicial, estado)
+VALUES (1, 1, '2025-06-22 08:00:00', 10000, 'abierta');
+
+INSERT INTO cotizaciones_dolar (fecha, valor, fuente, activo)
+VALUES (CURDATE(), 1280.00, 'Manual', 1);
