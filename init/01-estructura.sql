@@ -80,6 +80,14 @@ CREATE TABLE sucursales (
   FOREIGN KEY (provincia_id) REFERENCES provincias(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE usuarios_sucursales (
+  usuario_id INT NOT NULL,
+  sucursal_id INT NOT NULL,
+  PRIMARY KEY (usuario_id, sucursal_id),
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
+  FOREIGN KEY (sucursal_id) REFERENCES sucursales(id)
+);
+
 CREATE TABLE clientes (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(100) NULL,
