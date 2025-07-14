@@ -8,6 +8,11 @@ CREATE TABLE roles (
   nombre VARCHAR(50) NOT NULL UNIQUE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+INSERT INTO roles (id, nombre) VALUES
+(1, 'Administrador'),
+(2, 'Cajero'),
+(3, 'Vendedor');
+
 CREATE TABLE usuarios (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(100) NOT NULL,
@@ -19,6 +24,9 @@ CREATE TABLE usuarios (
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (rol_id) REFERENCES roles(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO usuarios (id, nombre, email, password, rol_id) VALUES
+(1, 'Administrador', 'admin@pos.com', '$2b$10$iKmyx/cuss.tdXRVVwJsx.RcVCXOkFRbb0B69ahw.Os4Len.UqVGO', 1);
 
 CREATE TABLE provincias (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -38,19 +46,33 @@ CREATE TABLE iva_aliquotas (
   descripcion VARCHAR(50) NOT NULL,
   porcentaje DECIMAL(5,2) NOT NULL,
   activo TINYINT(1) DEFAULT 1
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO iva_aliquotas (id, descripcion, porcentaje) VALUES
+  (1, 'IVA 10.5%', 10.50),
+  (2, 'IVA 21%', 21.00),
+  (3, 'IVA 27%', 27.00);
 
 CREATE TABLE condiciones_iva (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(50) NOT NULL UNIQUE,
   activo TINYINT(1) DEFAULT 1
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO condiciones_iva (id, nombre) VALUES
+  (1, 'Consumidor Final'),
+  (2, 'Responsable Inscripto'),
+  (3, 'Monotributo'),
+  (4, 'Exento');
 
 CREATE TABLE tipos_documento (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(50) NOT NULL UNIQUE,
   activo TINYINT(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO tipos_documento (id, nombre) VALUES
+(1, 'DNI'), (2, 'CUIT'), (3, 'CUIL'), (4, 'PASAPORTE');
 
 CREATE TABLE monedas (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -59,11 +81,26 @@ CREATE TABLE monedas (
   codigo_iso VARCHAR(5) NOT NULL UNIQUE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+INSERT INTO monedas (id, nombre, simbolo, codigo_iso) VALUES
+(1, 'Peso Argentino', '$', 'ARS'),
+(2, 'Dólar Estadounidense', 'U$', 'USD'),
+(3, 'Euro', '€', 'EUR');
+
 CREATE TABLE tipos_comprobante (
   id INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(50) NOT NULL UNIQUE, 
   descripcion TEXT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO tipos_comprobante (id, nombre) VALUES
+(1, 'Factura A'),
+(2, 'Factura B'),
+(3, 'Factura C'),
+(4, 'Nota de Crédito A'),
+(5, 'Nota de Crédito B'),
+(6, 'Remito'),
+(7, 'Factura E'),
+(8, 'Factura M');
 
 CREATE TABLE sucursales (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -86,7 +123,7 @@ CREATE TABLE usuarios_sucursales (
   PRIMARY KEY (usuario_id, sucursal_id),
   FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
   FOREIGN KEY (sucursal_id) REFERENCES sucursales(id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE clientes (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -171,7 +208,7 @@ CREATE TABLE articulos (
   FOREIGN KEY (proveedor_id) REFERENCES proveedores(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE IF NOT EXISTS articulo_imagenes (
+CREATE TABLE articulo_imagenes (
   id INT AUTO_INCREMENT PRIMARY KEY,
   articulo_id INT NOT NULL,
   url_imagen TEXT NOT NULL,
@@ -179,20 +216,30 @@ CREATE TABLE IF NOT EXISTS articulo_imagenes (
   activo TINYINT(1) DEFAULT 1,
   creado_en DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (articulo_id) REFERENCES articulos(id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE estados_numeros_serie (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(50) NOT NULL UNIQUE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO estados_numeros_serie (id, nombre) VALUES
+(1, 'disponible'),
+(2, 'vendido'),
+(3, 'devuelto');
 
 CREATE TABLE numeros_serie (
   id INT AUTO_INCREMENT PRIMARY KEY,
   articulo_id INT NOT NULL,
   nro_serie VARCHAR(100) NOT NULL,
   sucursal_id INT NOT NULL,
-  estado ENUM('disponible', 'vendido', 'devuelto') DEFAULT 'disponible',
+  estado_id INT NOT NULL,
   fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (articulo_id) REFERENCES articulos(id),
   FOREIGN KEY (sucursal_id) REFERENCES sucursales(id),
+  FOREIGN KEY (estado_id) REFERENCES estados_numeros_serie(id),
   UNIQUE (nro_serie, articulo_id)
-);
-
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE cotizaciones_dolar (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -229,15 +276,29 @@ CREATE TABLE arqueos (
   FOREIGN KEY (caja_id) REFERENCES cajas(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE motivos_movimientos_caja (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(50) NOT NULL UNIQUE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO motivos_movimientos_caja (id, nombre) VALUES
+(1, 'venta'),
+(2, 'pago proveedor'),
+(3, 'retiro'),
+(4, 'aporte'),
+(5, 'ajuste'),
+(6, 'otro');
+
 CREATE TABLE movimientos_caja (
   id INT AUTO_INCREMENT PRIMARY KEY,
   caja_id INT NOT NULL,
   tipo_movimiento ENUM('ingreso','egreso') NOT NULL,
-  motivo ENUM('venta','pago proveedor','retiro','aporte','ajuste','otro') NOT NULL,
+  motivo_id INT NOT NULL,
   descripcion TEXT,
   monto DECIMAL(10,2) NOT NULL,
   fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (caja_id) REFERENCES cajas(id)
+  FOREIGN KEY (caja_id) REFERENCES cajas(id),
+  FOREIGN KEY (motivo_id) REFERENCES motivos_movimientos_caja(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE stock (
@@ -250,6 +311,16 @@ CREATE TABLE stock (
   FOREIGN KEY (sucursal_id) REFERENCES sucursales(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE estados_remito (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(50) NOT NULL UNIQUE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO estados_remito (id, nombre) VALUES
+(1, 'sin remitir'),
+(2, 'parcial'),
+(3, 'completo');
+
 CREATE TABLE compras (
   id INT AUTO_INCREMENT PRIMARY KEY,
   proveedor_id INT NOT NULL,
@@ -261,13 +332,14 @@ CREATE TABLE compras (
   fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
   total DECIMAL(10,2) NOT NULL,
   mueve_stock TINYINT(1) DEFAULT 1,
-  estado_remito ENUM('sin remitir', 'parcial', 'completo') DEFAULT 'sin remitir',
+  estado_remito_id INT NOT NULL,
   observaciones TEXT,
   UNIQUE KEY proveedor_comprobante_unico (proveedor_id, punto_venta, numero_comprobante),
   FOREIGN KEY (proveedor_id) REFERENCES proveedores(id),
   FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
   FOREIGN KEY (sucursal_id) REFERENCES sucursales(id),
-  FOREIGN KEY (tipo_comprobante_id) REFERENCES tipos_comprobante(id)
+  FOREIGN KEY (tipo_comprobante_id) REFERENCES tipos_comprobante(id),
+  FOREIGN KEY (estado_remito_id) REFERENCES estados_remito(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE detalle_compra (
@@ -305,7 +377,7 @@ CREATE TABLE remitos_compra (
   FOREIGN KEY (proveedor_id) REFERENCES proveedores(id),
   FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
   FOREIGN KEY (sucursal_id) REFERENCES sucursales(id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 CREATE TABLE detalle_remito_compra (
@@ -317,7 +389,7 @@ CREATE TABLE detalle_remito_compra (
   FOREIGN KEY (remito_id) REFERENCES remitos_compra(id),
   FOREIGN KEY (articulo_id) REFERENCES articulos(id),
   FOREIGN KEY (detalle_compra_id) REFERENCES detalle_compra(id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 CREATE TABLE detalle_remito_series (
@@ -337,22 +409,55 @@ CREATE TABLE remito_factura_compra (
   FOREIGN KEY (compra_id) REFERENCES compras(id),
   FOREIGN KEY (remito_id) REFERENCES remitos_compra(id),
   UNIQUE(compra_id, remito_id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE origenes_movimientos_stock (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(50) NOT NULL UNIQUE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO origenes_movimientos_stock (id, nombre) VALUES
+(1, 'compra'),
+(2, 'venta'),
+(3, 'ajuste'),
+(4, 'otro');
 
 CREATE TABLE movimientos_stock (
   id INT AUTO_INCREMENT PRIMARY KEY,
   articulo_id INT NOT NULL,
   sucursal_id INT NOT NULL,
   cantidad INT NOT NULL,
-  tipo ENUM('entrada', 'salida') NOT NULL,
-  origen ENUM('compra', 'venta', 'ajuste', 'otro') NOT NULL,
-  origen_id INT,
+  tipo ENUM('entrada','salida') NOT NULL,
+  origen_id INT NOT NULL,
+  origen_id_externo INT,
   fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
   observaciones TEXT,
   FOREIGN KEY (articulo_id) REFERENCES articulos(id),
-  FOREIGN KEY (sucursal_id) REFERENCES sucursales(id)
+  FOREIGN KEY (sucursal_id) REFERENCES sucursales(id),
+  FOREIGN KEY (origen_id) REFERENCES origenes_movimientos_stock(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE tipos_pago (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(50) NOT NULL UNIQUE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO tipos_pago (id, nombre) VALUES
+(1, 'efectivo'),
+(2, 'tarjeta'),
+(3, 'transferencia'),
+(4, 'cuenta corriente'),
+(5, 'otro');
+
+CREATE TABLE estados_afip (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(50) NOT NULL UNIQUE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO estados_afip (id, nombre) VALUES
+(1, 'pendiente'),
+(2, 'autorizado'),
+(3, 'rechazado');
 
 CREATE TABLE ventas (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -360,7 +465,7 @@ CREATE TABLE ventas (
   usuario_id INT NOT NULL,
   caja_id INT,
   total DECIMAL(10,2) NOT NULL,
-  tipo_pago ENUM('efectivo','tarjeta','transferencia','cuenta corriente','otro') NOT NULL,
+  tipo_pago_id INT NOT NULL,
   observaciones TEXT,
   fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
   cae VARCHAR(20),
@@ -368,12 +473,24 @@ CREATE TABLE ventas (
   tipo_comprobante INT,
   punto_venta INT,
   numero_comprobante INT,
-  afip_estado ENUM('pendiente','autorizado','rechazado') DEFAULT 'pendiente',
+  afip_estado_id INT DEFAULT 1,
   afip_response TEXT,
   FOREIGN KEY (cliente_id) REFERENCES clientes(id),
   FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
-  FOREIGN KEY (caja_id) REFERENCES cajas(id)
+  FOREIGN KEY (caja_id) REFERENCES cajas(id),
+  FOREIGN KEY (tipo_pago_id) REFERENCES tipos_pago(id),
+  FOREIGN KEY (afip_estado_id) REFERENCES estados_afip(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE tipos_ajuste (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(50) NOT NULL UNIQUE
+);
+
+INSERT INTO tipos_ajuste (id, nombre) VALUES
+(1, 'ninguno'),
+(2, 'descuento'),
+(3, 'recargo');
 
 CREATE TABLE detalle_venta (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -382,7 +499,7 @@ CREATE TABLE detalle_venta (
   cantidad INT NOT NULL,
 
   precio_base DECIMAL(10,2) NOT NULL, 
-  tipo_ajuste ENUM('ninguno','descuento','recargo') DEFAULT 'ninguno',
+  tipo_ajuste_id INT NOT NULL DEFAULT 1,
   porcentaje_ajuste DECIMAL(5,2) DEFAULT 0.00,
 
   precio_unitario DECIMAL(10,2) NOT NULL, 
@@ -393,7 +510,8 @@ CREATE TABLE detalle_venta (
 
   FOREIGN KEY (venta_id) REFERENCES ventas(id),
   FOREIGN KEY (articulo_id) REFERENCES articulos(id),
-  FOREIGN KEY (moneda_id) REFERENCES monedas(id)
+  FOREIGN KEY (moneda_id) REFERENCES monedas(id),
+  FOREIGN KEY (tipo_ajuste_id) REFERENCES tipos_ajuste(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE detalle_venta_series (
@@ -404,40 +522,77 @@ CREATE TABLE detalle_venta_series (
   UNIQUE (detalle_venta_id, nro_serie)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE formas_pago (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(50) NOT NULL UNIQUE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO formas_pago (id, nombre) VALUES
+(1, 'efectivo'),
+(2, 'transferencia'),
+(3, 'tarjeta'),
+(4, 'cheque'),
+(5, 'otro');
+
 CREATE TABLE pagos (
   id INT AUTO_INCREMENT PRIMARY KEY,
   cliente_id INT NOT NULL,
   caja_id INT,
   fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
   monto DECIMAL(10,2) NOT NULL,
-  forma_pago ENUM('efectivo','transferencia','tarjeta','cheque','otro') NOT NULL,
+  forma_pago_id INT NOT NULL,
   observaciones TEXT,
   FOREIGN KEY (cliente_id) REFERENCES clientes(id),
-  FOREIGN KEY (caja_id) REFERENCES cajas(id)
+  FOREIGN KEY (caja_id) REFERENCES cajas(id),
+  FOREIGN KEY (forma_pago_id) REFERENCES formas_pago(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE tipos_movimiento_ctacte (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(50) NOT NULL UNIQUE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO tipos_movimiento_ctacte (id, nombre) VALUES
+(1, 'venta'),
+(2, 'pago'),
+(3, 'ajuste');
 
 CREATE TABLE cuentas_corrientes (
   id INT AUTO_INCREMENT PRIMARY KEY,
   cliente_id INT NOT NULL,
   venta_id INT,
   fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
-  tipo_movimiento ENUM('venta','pago','ajuste') NOT NULL,
+  tipo_movimiento_id INT NOT NULL,
   descripcion TEXT,
   monto DECIMAL(10,2) NOT NULL,
   saldo DECIMAL(10,2),
   FOREIGN KEY (cliente_id) REFERENCES clientes(id),
-  FOREIGN KEY (venta_id) REFERENCES ventas(id)
+  FOREIGN KEY (venta_id) REFERENCES ventas(id),
+  FOREIGN KEY (tipo_movimiento_id) REFERENCES tipos_movimiento_ctacte(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE acciones_log (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(20) NOT NULL UNIQUE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO acciones_log (id, nombre) VALUES
+(1, 'INSERT'),
+(2, 'UPDATE'),
+(3, 'DELETE'),
+(4, 'LOGIN'),
+(5, 'LOGOUT');
 
 CREATE TABLE logs (
   id INT AUTO_INCREMENT PRIMARY KEY,
   usuario_id INT,
   fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
   tabla VARCHAR(100),
-  accion ENUM('INSERT', 'UPDATE', 'DELETE', 'LOGIN', 'LOGOUT') NOT NULL,
+  accion_id INT NOT NULL,
   descripcion TEXT,
   registro_id INT,
   datos_anteriores TEXT,
   datos_nuevos TEXT,
-  FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
+  FOREIGN KEY (accion_id) REFERENCES acciones_log(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

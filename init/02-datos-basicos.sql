@@ -38,40 +38,8 @@ INSERT INTO ciudades (id, nombre, provincia_id, codigo_postal) VALUES
 (9, 'Santo Tomé', 20, '3016'),
 (10, 'Cañada de Gómez', 20, '2500');
 
-
--- Datos iniciales para roles
-INSERT INTO roles (id, nombre) VALUES
-(1, 'Administrador'),
-(2, 'Cajero'),
-(3, 'Vendedor');
-
--- Datos iniciales para IVA Articulos
-INSERT INTO iva_aliquotas (descripcion, porcentaje) VALUES
-  ('IVA 10.5%', 10.50),
-  ('IVA 21%', 21.00),
-  ('IVA 27%', 27.00);
-
--- Datos iniciales para IVA Clinetes - Proveedores
-INSERT INTO condiciones_iva (nombre) VALUES
-  ('Consumidor Final'),
-  ('Responsable Inscripto'),
-  ('Monotributo'),
-  ('Exento');
-
-INSERT INTO tipos_documento (nombre) VALUES
-('DNI'), ('CUIT'), ('CUIL'), ('PASAPORTE');
-
-
--- Datos iniciales para monedas
-INSERT INTO monedas (id, nombre, simbolo, codigo_iso) VALUES
-(1, 'Peso Argentino', '$', 'ARS'),
-(2, 'Dólar Estadounidense', 'U$', 'USD'),
-(3, 'Euro', '€', 'EUR');
-
-
 -- Usuarios de prueba
 INSERT INTO usuarios (nombre, email, password, rol_id) VALUES
-('Administrador', 'admin@pos.com', '$2b$10$iKmyx/cuss.tdXRVVwJsx.RcVCXOkFRbb0B69ahw.Os4Len.UqVGO', 1),
 ('Cajero', 'cajero@pos.com', '$2b$10$iKmyx/cuss.tdXRVVwJsx.RcVCXOkFRbb0B69ahw.Os4Len.UqVGO', 2),
 ('Vendedor', 'vendedor@pos.com', '$2b$10$iKmyx/cuss.tdXRVVwJsx.RcVCXOkFRbb0B69ahw.Os4Len.UqVGO', 3);
 
@@ -182,16 +150,6 @@ INSERT INTO stock (articulo_id, sucursal_id, cantidad) VALUES (10, 1, 55);
 INSERT INTO stock (articulo_id, sucursal_id, cantidad) VALUES (11, 1, 55);
 INSERT INTO stock (articulo_id, sucursal_id, cantidad) VALUES (12, 1, 55);
 INSERT INTO stock (articulo_id, sucursal_id, cantidad) VALUES (13, 1, 55);
-
-INSERT INTO tipos_comprobante (nombre) VALUES
-('Factura A'),
-('Factura B'),
-('Factura C'),
-('Nota de Crédito A'),
-('Nota de Crédito B'),
-('Remito'),
-('Factura E'),
-('Factura M');
 
 -- Cajas abiertas
 INSERT INTO cajas (usuario_id, sucursal_id, fecha_apertura, saldo_inicial, estado)
