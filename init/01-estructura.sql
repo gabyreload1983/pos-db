@@ -418,9 +418,10 @@ CREATE TABLE origenes_movimientos_stock (
 
 INSERT INTO origenes_movimientos_stock (id, nombre) VALUES
 (1, 'compra'),
-(2, 'venta'),
-(3, 'ajuste'),
-(4, 'otro');
+(2, 'remito'),
+(3, 'venta'),
+(4, 'ajuste'),
+(5, 'otro');
 
 CREATE TABLE movimientos_stock (
   id INT AUTO_INCREMENT PRIMARY KEY,
