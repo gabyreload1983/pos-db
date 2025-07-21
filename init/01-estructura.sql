@@ -465,22 +465,41 @@ CREATE TABLE ventas (
   cliente_id INT,
   usuario_id INT NOT NULL,
   caja_id INT,
-  total DECIMAL(10,2) NOT NULL,
+  total DECIMAL(10,2) NOT NULL,        
+  total_iva DECIMAL(10,2) DEFAULT 0.00, 
+  total_final DECIMAL(10,2) GENERATED ALWAYS AS (total + total_iva) STORED, 
   tipo_pago_id INT NOT NULL,
   observaciones TEXT,
   fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
-  cae VARCHAR(20),
-  vencimiento_cae DATE,
-  tipo_comprobante INT,
-  punto_venta INT,
-  numero_comprobante INT,
-  afip_estado_id INT DEFAULT 1,
-  afip_response TEXT,
   FOREIGN KEY (cliente_id) REFERENCES clientes(id),
   FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
   FOREIGN KEY (caja_id) REFERENCES cajas(id),
-  FOREIGN KEY (tipo_pago_id) REFERENCES tipos_pago(id),
-  FOREIGN KEY (afip_estado_id) REFERENCES estados_afip(id)
+  FOREIGN KEY (tipo_pago_id) REFERENCES tipos_pago(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE comprobantes_electronicos (
+  id                    INT AUTO_INCREMENT PRIMARY KEY,
+  venta_id              INT NOT NULL,
+  tipo_comprobante_id   INT NOT NULL,
+  punto_venta           INT NOT NULL,
+  numero_comprobante    INT NOT NULL,
+  cae                   VARCHAR(50) NOT NULL,
+  cae_vencimiento       DATE NOT NULL,
+  afip_estado_id        INT NOT NULL DEFAULT 1,
+  afip_response         TEXT,
+  emitida_en            DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_ce_venta
+    FOREIGN KEY (venta_id)
+    REFERENCES ventas(id)
+    ON DELETE CASCADE,
+  CONSTRAINT fk_ce_tipo_comprobante
+    FOREIGN KEY (tipo_comprobante_id)
+    REFERENCES tipos_comprobante(id),
+  CONSTRAINT fk_ce_estado_afip
+    FOREIGN KEY (afip_estado_id)
+    REFERENCES estados_afip(id),
+  CONSTRAINT uq_comprobantes_tipo_punto_numero
+    UNIQUE (tipo_comprobante_id, punto_venta, numero_comprobante)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE tipos_ajuste (
@@ -506,6 +525,8 @@ CREATE TABLE detalle_venta (
   precio_unitario DECIMAL(10,2) NOT NULL, 
   moneda_id INT NOT NULL,                
   cotizacion_dolar DECIMAL(10,4) DEFAULT NULL, 
+  porcentaje_iva DECIMAL(5,2) NULL,
+  monto_iva DECIMAL(10,2) NULL,
 
   subtotal DECIMAL(10,2) GENERATED ALWAYS AS (cantidad * precio_unitario) STORED,
 
