@@ -499,7 +499,8 @@ CREATE TABLE comprobantes_electronicos (
     FOREIGN KEY (afip_estado_id)
     REFERENCES estados_afip(id),
   CONSTRAINT uq_comprobantes_tipo_punto_numero
-    UNIQUE (tipo_comprobante_id, punto_venta, numero_comprobante)
+    UNIQUE (tipo_comprobante_id, punto_venta, numero_comprobante),
+  KEY idx_comprobantes_venta_id (venta_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE tipos_ajuste (
