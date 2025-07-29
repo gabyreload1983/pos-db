@@ -151,6 +151,11 @@ INSERT INTO stock (articulo_id, sucursal_id, cantidad) VALUES (11, 1, 55);
 INSERT INTO stock (articulo_id, sucursal_id, cantidad) VALUES (12, 1, 55);
 INSERT INTO stock (articulo_id, sucursal_id, cantidad) VALUES (13, 1, 55);
 
+INSERT INTO numeros_serie (articulo_id, nro_serie, sucursal_id, estado_id)
+VALUES 
+(1, 'SN001', 1, 1),
+(1, 'SN002', 1, 1);
+
 -- Cajas abiertas
 INSERT INTO cajas (usuario_id, sucursal_id, fecha_apertura, saldo_inicial, estado)
 VALUES (1, 1, '2025-06-22 08:00:00', 10000, 'abierta');
