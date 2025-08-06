@@ -251,6 +251,9 @@ CREATE TABLE cotizaciones_dolar (
   INDEX (activo)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+INSERT INTO cotizaciones_dolar (fecha, valor, fuente, activo)
+VALUES (CURDATE(), 1.00, 'Manual', 1);
+
 CREATE TABLE cajas (
   id INT AUTO_INCREMENT PRIMARY KEY,
   usuario_id INT NOT NULL,

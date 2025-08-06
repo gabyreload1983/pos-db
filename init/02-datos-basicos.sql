@@ -160,5 +160,3 @@ VALUES
 INSERT INTO cajas (usuario_id, sucursal_id, fecha_apertura, saldo_inicial, estado)
 VALUES (1, 1, '2025-06-22 08:00:00', 10000, 'abierta');
 
-INSERT INTO cotizaciones_dolar (fecha, valor, fuente, activo)
-VALUES (CURDATE(), 1280.00, 'Manual', 1);
