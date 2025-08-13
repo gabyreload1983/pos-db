@@ -241,18 +241,20 @@ CREATE TABLE numeros_serie (
   UNIQUE (nro_serie, articulo_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE cotizaciones_dolar (
+CREATE TABLE cotizaciones_monedas (
   id INT AUTO_INCREMENT PRIMARY KEY,
+  moneda_id INT NOT NULL,
   fecha DATE NOT NULL,
-  valor DECIMAL(10,4) NOT NULL, 
-  fuente VARCHAR(100),          
-  activo TINYINT(1) DEFAULT 0,  
-  UNIQUE KEY (fecha),
-  INDEX (activo)
+  valor DECIMAL(18,6) NOT NULL,       
+  fuente VARCHAR(100),
+  activo TINYINT(1) DEFAULT 0,
+  UNIQUE KEY uq_moneda_fecha (moneda_id, fecha),
+  INDEX (activo),
+  FOREIGN KEY (moneda_id) REFERENCES monedas(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO cotizaciones_dolar (fecha, valor, fuente, activo)
-VALUES (CURDATE(), 1.00, 'Manual', 1);
+INSERT INTO cotizaciones_monedas (moneda_id, fecha, valor, fuente, activo)
+VALUES (2, CURDATE(), 1.00, 'Init', 1);
 
 CREATE TABLE cajas (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -352,7 +354,7 @@ CREATE TABLE detalle_compra (
   cantidad INT NOT NULL,
   costo_unitario DECIMAL(10,2) NOT NULL,
   moneda_id INT NOT NULL,
-  cotizacion_dolar DECIMAL(10,4) DEFAULT NULL,
+  tasa_cambio DECIMAL(10,4) DEFAULT NULL,
   subtotal DECIMAL(10,2) GENERATED ALWAYS AS (cantidad * costo_unitario) STORED,
   FOREIGN KEY (compra_id) REFERENCES compras(id),
   FOREIGN KEY (articulo_id) REFERENCES articulos(id),
@@ -528,7 +530,7 @@ CREATE TABLE detalle_venta (
 
   precio_unitario DECIMAL(10,2) NOT NULL, 
   moneda_id INT NOT NULL,                
-  cotizacion_dolar DECIMAL(10,4) DEFAULT NULL, 
+  tasa_cambio DECIMAL(10,4) DEFAULT NULL, 
   porcentaje_iva DECIMAL(5,2) NULL,
   monto_iva DECIMAL(10,2) NULL,
 
