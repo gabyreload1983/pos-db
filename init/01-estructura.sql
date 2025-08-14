@@ -335,7 +335,9 @@ CREATE TABLE compras (
   punto_venta INT NOT NULL,
   numero_comprobante INT NOT NULL,
   fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
-  total DECIMAL(10,2) NOT NULL,
+  total_neto DECIMAL(10,2) NOT NULL,
+  total_iva DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  total_final DECIMAL(10,2) AS (total_neto + total_iva) STORED,
   mueve_stock TINYINT(1) DEFAULT 1,
   estado_remito_id INT NOT NULL,
   observaciones TEXT,
@@ -352,14 +354,27 @@ CREATE TABLE detalle_compra (
   compra_id INT NOT NULL,
   articulo_id INT NOT NULL,
   cantidad INT NOT NULL,
-  costo_unitario DECIMAL(10,2) NOT NULL,
+  costo_unitario_ars DECIMAL(10,2) NOT NULL,
+  porcentaje_iva DECIMAL(5,2) NULL,
   moneda_id INT NOT NULL,
   tasa_cambio DECIMAL(10,4) DEFAULT NULL,
-  subtotal DECIMAL(10,2) GENERATED ALWAYS AS (cantidad * costo_unitario) STORED,
+  monto_iva DECIMAL(10,2) NULL,
+  subtotal DECIMAL(10,2) GENERATED ALWAYS AS (cantidad * costo_unitario_ars) STORED,
   FOREIGN KEY (compra_id) REFERENCES compras(id),
   FOREIGN KEY (articulo_id) REFERENCES articulos(id),
   FOREIGN KEY (moneda_id) REFERENCES monedas(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE compras_iva_resumen (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  compra_id INT NOT NULL,
+  iva_aliquota_id INT NOT NULL,
+  neto DECIMAL(12,2) NOT NULL,
+  iva  DECIMAL(12,2) NOT NULL,
+  FOREIGN KEY (compra_id) REFERENCES compras(id),
+  FOREIGN KEY (iva_aliquota_id) REFERENCES iva_aliquotas(id),
+  UNIQUE KEY uq_compra_aliquota (compra_id, iva_aliquota_id)
+);
 
 CREATE TABLE detalle_compra_series (
   id INT AUTO_INCREMENT PRIMARY KEY,
