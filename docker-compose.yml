@@ -8,6 +8,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: pos
+      MYSQL_USER: devuser
+      MYSQL_PASSWORD: devpass
     ports:
       - "33306:3306"
     volumes:
