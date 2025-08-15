@@ -391,9 +391,12 @@ CREATE TABLE remitos_compra (
   proveedor_id INT,
   usuario_id INT NOT NULL,
   sucursal_id INT NOT NULL,
+  punto_venta INT NOT NULL,
+  numero_comprobante INT NOT NULL,
   fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
   observaciones TEXT,
   total DECIMAL(10,2) NOT NULL,
+  UNIQUE KEY uq_remito_proveedor_comprobante (proveedor_id, punto_venta, numero_comprobante),
   FOREIGN KEY (proveedor_id) REFERENCES proveedores(id),
   FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
   FOREIGN KEY (sucursal_id) REFERENCES sucursales(id)
@@ -412,7 +415,7 @@ CREATE TABLE detalle_remito_compra (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
-CREATE TABLE detalle_remito_series (
+CREATE TABLE detalle_remito_compra_series (
   id INT AUTO_INCREMENT PRIMARY KEY,
   detalle_remito_id INT NOT NULL,
   nro_serie VARCHAR(100) NOT NULL,
