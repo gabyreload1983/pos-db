@@ -254,7 +254,7 @@ CREATE TABLE cotizaciones_monedas (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO cotizaciones_monedas (moneda_id, fecha, valor, fuente, activo)
-VALUES (2, CURDATE(), 1.00, 'Init', 1);
+VALUES (2, CURDATE(), 1000.00, 'Init', 1);
 
 CREATE TABLE cajas (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -483,6 +483,7 @@ INSERT INTO estados_afip (id, nombre) VALUES
 (2, 'autorizado'),
 (3, 'rechazado');
 
+/* TODO   punto_venta & numero_comprobante */
 CREATE TABLE ventas (
   id INT AUTO_INCREMENT PRIMARY KEY,
   cliente_id INT,
@@ -534,7 +535,8 @@ CREATE TABLE tipos_ajuste (
 INSERT INTO tipos_ajuste (id, nombre) VALUES
 (1, 'ninguno'),
 (2, 'descuento'),
-(3, 'recargo');
+(3, 'recargo')
+(4, 'manual');
 
 CREATE TABLE detalle_venta (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -542,23 +544,40 @@ CREATE TABLE detalle_venta (
   articulo_id INT NOT NULL,
   cantidad INT NOT NULL,
 
-  precio_base DECIMAL(10,2) NOT NULL, 
+  precio_unitario_ars DECIMAL(10,2) NOT NULL,
+  subtotal_ars DECIMAL(10,2)
+    GENERATED ALWAYS AS (cantidad * precio_unitario_ars) STORED,
+
+  precio_unitario_moneda DECIMAL(10,4) NULL,  
+  precio_base_moneda     DECIMAL(10,4) NULL,  
   tipo_ajuste_id INT NOT NULL DEFAULT 1,
-  porcentaje_ajuste DECIMAL(5,2) DEFAULT 0.00,
+  porcentaje_ajuste DECIMAL(5,2) NOT NULL DEFAULT 0.00,
 
-  precio_unitario DECIMAL(10,2) NOT NULL, 
-  moneda_id INT NOT NULL,                
-  tasa_cambio DECIMAL(10,4) DEFAULT NULL, 
+  moneda_id INT NOT NULL,
+  tasa_cambio DECIMAL(10,4) DEFAULT NULL,
+
   porcentaje_iva DECIMAL(5,2) NULL,
-  monto_iva DECIMAL(10,2) NULL,
+  monto_iva      DECIMAL(10,2) NOT NULL DEFAULT 0,
 
-  subtotal DECIMAL(10,2) GENERATED ALWAYS AS (cantidad * precio_unitario) STORED,
+  subtotal_moneda DECIMAL(12,4)
+    GENERATED ALWAYS AS (cantidad * precio_unitario_moneda) STORED,
 
   FOREIGN KEY (venta_id) REFERENCES ventas(id),
   FOREIGN KEY (articulo_id) REFERENCES articulos(id),
   FOREIGN KEY (moneda_id) REFERENCES monedas(id),
   FOREIGN KEY (tipo_ajuste_id) REFERENCES tipos_ajuste(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS ventas_iva_resumen (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  venta_id INT NOT NULL,
+  iva_aliquota_id INT NOT NULL,
+  neto DECIMAL(12,2) NOT NULL,
+  iva  DECIMAL(12,2) NOT NULL,
+  FOREIGN KEY (venta_id) REFERENCES ventas(id),
+  FOREIGN KEY (iva_aliquota_id) REFERENCES iva_aliquotas(id),
+  UNIQUE KEY uq_venta_aliquota (venta_id, iva_aliquota_id)
+);
 
 CREATE TABLE detalle_venta_series (
   id INT AUTO_INCREMENT PRIMARY KEY,
