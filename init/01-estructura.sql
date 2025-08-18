@@ -535,7 +535,7 @@ CREATE TABLE tipos_ajuste (
 INSERT INTO tipos_ajuste (id, nombre) VALUES
 (1, 'ninguno'),
 (2, 'descuento'),
-(3, 'recargo')
+(3, 'recargo'),
 (4, 'manual');
 
 CREATE TABLE detalle_venta (
